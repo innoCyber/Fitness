@@ -1,11 +1,9 @@
-package com.innocyber.fitnesstracker
+package com.innocyber.fitnesstracker.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
+import com.innocyber.fitnesstracker.R
 import com.innocyber.fitnesstracker.db.RunDao
-import dagger.android.AndroidInjection
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
