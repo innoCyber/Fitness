@@ -1,12 +1,15 @@
 package com.innocyber.fitnesstracker.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.google.android.gms.maps.GoogleMap
 import com.innocyber.fitnesstracker.R
+import com.innocyber.fitnesstracker.services.TrackingService
 import com.innocyber.fitnesstracker.ui.viewmodels.MainViewModel
+import com.innocyber.fitnesstracker.util.Constants
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_tracking.*
 
@@ -19,11 +22,20 @@ class TrackingFragment: Fragment(R.layout.fragment_tracking) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        mapView.onCreate(savedInstanceState)
+        btnToggleRun.setOnClickListener {
+            sendIntentActionToTrackingService(Constants.ACTION_START_OR_RESUME_SERVICE)
+        }
         mapView.getMapAsync {
             map = it
         }
     }
+
+    private fun sendIntentActionToTrackingService(intentAction: String) =
+        Intent(requireContext(), TrackingService::class.java).also {
+            it.action = intentAction
+            requireContext().startService(it)
+        }
 
     override fun onResume() {
         super.onResume()
